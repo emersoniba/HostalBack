@@ -19,15 +19,30 @@ class Usuario(AbstractUser):
     def __str__(self):
         return f"{self.username} ({self.rol})"
 
+#departamentos
+class Departamento(models.Model):
+    numero = models.CharField(max_length=20, null=True,blank=True)
+    piso = models.IntegerField(null=True, blank=True)
+    torre = models.CharField(max_length=50, null=True, blank=True)
+
+    def __str__(self):
+        return f"Depto {self.numero}"
 
 # Residentes
 class Residente(models.Model):
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
+    departamento = models.ForeignKey(Departamento, on_delete=models.CASCADE,null=True,blank=True)
+
+    def __str__(self):
+        return f"{self.usuario.username} - {self.departamento.numero}"
+
+'''class Residente(models.Model):
     usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
     numero_apartamento = models.CharField(max_length=20)
 
     def __str__(self):
         return f"{self.usuario.username} - {self.numero_apartamento}"
-
+'''
 
 # Áreas Comunes
 class AreaComun(models.Model):

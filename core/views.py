@@ -1,8 +1,10 @@
 from rest_framework import viewsets
 from drf_spectacular.utils import extend_schema
 
-from .models import Rol, Usuario, Residente, AreaComun, Reserva, Factura, Pago
+from .models import Rol, Usuario, Residente, AreaComun, Reserva, Factura, Pago,Departamento
 from .serializers import RolSerializer, UsuarioSerializer, ResidenteSerializer, AreaComunSerializer, ReservaSerializer, FacturaSerializer, PagoSerializer
+from .serializers import DepartamentoSerializer
+
 
 @extend_schema(tags=['Gestión de roles'])
 class RolViewSet(viewsets.ModelViewSet):
@@ -18,6 +20,11 @@ class UsuarioViewSet(viewsets.ModelViewSet):
 class ResidenteViewSet(viewsets.ModelViewSet):
     queryset = Residente.objects.all()
     serializer_class = ResidenteSerializer
+
+@extend_schema(tags=['Gestion departamentos'])
+class DepartamentoViewSet(viewsets.ModelViewSet):
+    queryset=Departamento.objects.all()
+    serializer_class=DepartamentoSerializer
 
 @extend_schema(tags=['Gestión de areas'])
 class AreaComunViewSet(viewsets.ModelViewSet):
